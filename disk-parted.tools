@@ -1,0 +1,41 @@
+Common disk partition tools
+
+--- fdisk, gdisk, parted and cfdisk
+
+
+.:: fdisk
+ fdisk -l 		show disk partition
+ fdisk -l /dev/sda 	show disk sda's partition
+ fdisk /dev/sdb 	parting the disk sdb
+ 
+.:: gdisk
+gdisk /dev/sdb
+
+.:: Formarting
+ mkfs.ext3 /dev/sdb1
+ mkswap /dev/sdb2
+
+.:: Remove partition
+ wipefs -a /dev/sdb
+
+.:: df
+ df -h			list disk usage
+
+.:: Monting filesystem
+/etc/fstab
+
+
+.:: File system on file
+mkdir /data
+   truncate -s 1G teste.img
+   truncate -s 1T arquivo_grande.disc
+   mkfs.ext4 teste.img <- Formating 
+   mount teste.img /mnt <- mounting file system on file
+
+.:: Adding swap using file system on file
+dd if=/dev/zero of=teste.img bs=1024 count=1024000
+mkswap teste.img
+chmond 0600 teste.img
+swapon -p 3 teste.img (p= priority of use.)
+swapoff teste.img
+cat /proc/swaps

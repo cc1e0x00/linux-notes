@@ -1,0 +1,36 @@
+- Disco 1Tb
+
+OS  Debian 10 / Ubuntu 20
+
+.:: Desktop
+ / 20Gb
+ / usr 15Gb
+ /var 10Gb
+ /home 500Gb
+ swap 8Gb
+
+.:: alternative Desktop
+ / 50Gb
+ /home 930Gb
+ swap 8Gb
+
+
+.:: E-mail server
+ / 20Gb
+ /var 900Gb
+ /home 5Gb
+ swap 16Gb
+
+.:: File Server
+ / 20G
+ /home 5Gb
+ /data 900Gb
+ swap 8Gb
+
+.:: Web Server
+ / 20Gb
+ /home 5Gb
+ /var 950Gb
+   /var/www
+   /var/log
+ swap 8Gb

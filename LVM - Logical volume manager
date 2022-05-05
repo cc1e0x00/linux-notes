@@ -1,0 +1,65 @@
+.:: LVM - Logical Volume Manager
+
+""" Permite uso eficaz do(s) disco(s) com possibilidade de aumentar/diminuir dinâmicamente o tamanho
+das partições sem reparticionamento.
+"""
+
+
+.::As três camadas do LVM:
+
+--> Volume físico ou Phisico volume (PV) representa o dispositivo de armazenamento ou partição (exemplo, /dev/sda1);
+--> Grupo de volumes ou Volume group (VG)  representa o grupo de volumes físicos que foram adicionado no LVM. Ou seja, o conjunto de PV. A partir do VG são criadas as particição Volumes lógicos;
+--> Volume lógico ou Logical volume (LV) corresponde a particação criada a partir do VG para gravação de dados.
+
+Representação gráfica
+
++------[ Grupo de Volume (VG) - lvmdsk ]------+
+| +--[ PV - hda1 ]---+ +--[ PV - hdb1 ]--+    |
+| | PE PE PE PE PE PE| | PE PE PE PE PE  |    |
+| +------------------+ +-----------------+    |
+|    |  |                   |        |        |
+|    |  | +-----------------+        |        |
+|    |  +----------------+           |        |
+|    |    |              |           |        |
+|  +-[ LV - var ]-+    +-[ LV - home ]-+      |
+|  | LE LE LE LE  |    | LE LE LE LE   |      |
+|  +--------------+    +---------------+      |
++---------------------------------------------+
+
+.:: Implementação simples do LVM 
+	1. Limpar discos
+		wipefs -a /dev/<sdb1>
+	2. Alterar tipo da partição para Linux LVM
+	3.Crie volume físico, caso necessário instale o utilitário lvm2
+		apt-get install lvm2 ;
+		pvcreate /dev/<sdb1>
+	4. Crie grupo de volume com desejado nome
+		vgcreate vg-linuxexperts /dev/<sdb1>
+	5. Criar camada virtual (volume lógico) a partir do VG anteriormente criado
+		lvcreate -n linuxadmin -L 10G vg-linuxexperts
+	6. Formate o sistema no sistema de arquivos desejado
+		mkfs.ext4 /dev/vg-linuxexperts/linuxadmin
+	7. Monte a partição no local desejado
+		mount /dev/vg-linuxexperts/linuxadmin /mnt
+
+.:: extender LV
+lvextend -L +200M /dev/vg-linuxexperts/linuxadmin
+resize2fs /dev/vg-linuxexperts/linuxadmin 
+
+.::Extender grupo de volumes
+vgextend vg-linuxexperts /dev/sdb2
+
+.::Mostrar volumes físicos
+$pvdisplay
+$pvs
+
+.::Mostrar grupo de volumes
+$vgdisplay
+$vgs
+
+.:: Mostrar volumes lógicos
+lvdisplay
+
+
+
+ 

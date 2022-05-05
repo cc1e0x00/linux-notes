@@ -1,0 +1,29 @@
+### TMUX is a terminal mulplexer.
+
+--- Common command
+
+. tmux ls - List tmux session
+
+. tmux new = new session 
+
+. Crtl + b + c = Create a new tab
+
+. Crtl + b + [tab number] = shift to tmux termina number
+
+. Crtl + b + d = Leave tmux
+
+. tmux attach = Attach to running tmux sessions 
+
+
+--- split terminal
+
+Crtl + b + " = horizontal
+
+Crtl + b + % = Vertical
+
+Moving among terminals use:
+
+Crtl + b + upright
+
+Crtl + b + downright
+

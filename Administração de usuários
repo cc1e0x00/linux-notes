@@ -1,0 +1,80 @@
+.:: ADMINISTRAÇÃO DE USUÁRIOS
+
+Informações dos usuários se encontram disponíveis em:
+	/etc/passwd
+	/etc/shadow
+
+	.:: Criação de usuário com adduser
+-->Forma interativa
+
+#adduser giropops
+Configurações utilizada pelo adduser está localizada no arquivo	/etc/adduser.conf
+
+UID - User Identification (Por padrão começa em 1000 e termina em 999)
+GID - Group Identification 
+/etc/skel - Arquivos nesse diretório serão copiados para /home de novos usuários
+
+
+	.:: Criação de usuário com useradd
+--> Configuração do usuário sequencial. Paramêtros podem ser especificados na string do comando
+
+# useradd rafael
+# passwd  rafael 
+	{senha}
+
+	.:: Remover usuários
+deluser <username> ! Sem a opção --remove-home não remove home do usuário
+userdel <username> ! Opção -r para remover home do usuário
+
+	
+	.:: ADMINISTRAÇÃO DE GRUPOS
+
+Informações de grupos podem ser encontradas nos arquivos:
+	/etc/group	
+	/etc/gshadow
+
+	.:: Criação de grupos com groupadd
+
+# groupadd girus
+# addgroup engineers
+# newgrp
+
+	.:: Removendo grupos
+delgroup
+groupdel
+
+
+	.:: Adicionando pessoas e senhas em grupos
+
+Colocando senha no grupo girus (look at /etc/gshadow)
+	#gpasswd girus 
+
+Temporáriamente participar do grupo
+	newgrp girus
+
+Adicionando usuários giropops no grupo girus
+	gpasswd -a giropops girus
+	gpasswd -A giropops girus (adicionando giropops como admin do grupo)
+	gpasswd -M giropops girus (Adicionando usuário como participante e admin do grupo)
+Removendo usuário do grupo
+	gpassswd -d giropops girus
+
+
+	.:: Alterando informações do usuário com usermod
+
+Alterar uid
+usermod -u 5555 giropops
+
+Alterar gid
+usermod -g 5555 giropops
+
+Alterar comentários
+usermod -c "Giropops strigus girus" giropops
+
+alterar home
+usermod -d /home/giropops-girus giroppops
+
+Alterar bash
+usermod -s /bin/zsh giropops
+
+usermod -u 5555 -g 5555 -c "Giropops strigus girus" -d /home/giropops-girus -s /bin/zsh giropops
