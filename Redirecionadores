@@ -1,0 +1,24 @@
+.:: REDIRECIONADORES ::.
+
+## Sobrescreve ##
+< (STDIN 0 - Standard Input - File descriptor 0) Redireciona a entrada padrão
+> (STDOUT - Standard Output - File descriptor 1)  Redireciona a saída padrão 
+2> (STERR 2 - Standard Err - File descriptor 2) Redirecionada saída de erro
+
+## Concatenação ##
+>> STDOUT com concatenação
+<< STIND com concatenação
+2>> STERR com concatenação
+
+
+2>&1 Transformar saída de erro em STDOUT
+2>>&1 Transformar saída de erro em STOUT com concatenação
+
+comandaA | comandoB - Redireciona saída do comanda a para o comando b
+
+.:: Operadores ::.
+
+and && - Executa o segundo comando caso o primeiro tenha sucesso 
+or || - Executa o segundo comando caso o primeira retorne erro
+
+

@@ -1,0 +1,66 @@
+.:: Gerenciamento de permissões ::.
+
+-rw-r--r-- 1 cc1e0x00 cc1e0x00 0 mai  6 09:23 file-example
+
+ -		 rw- 		 rw-  		r--
+Tipo do arquivo  Perm. do dono   Perm do grupo  Outros
+
+
+--> TIPO DE ARQUIVO
+- - Arquivo de texto			COMANDOS
+l - Link simbólico			umask => Define a permissão padrão de arquivos
+b - dispositivo de bloco		chmod => Modifica as permissões
+c - Dispositivo de caractere		chown => Modifica o dono/grupo do arq/dir
+s - Socket				chgrṕ => Modifica o grupo do arq/dir
+d - Diretório
+
+--> TIPOS DE PERMISSÃO 
+SIMBÓLICO			OCTAL		QUEM
+- - Ausência de permissão	0		u => Dono do arq
+r - Permissão de leitura	4		g => Grupo do dono
+w - Permissçao de escrita	2		0 => Outros
+x - Permissão de execução	1		a => All
+t - Stick bit			1
+S - SGID			2
+S - SUID			4
+--> Examples
+chmod 644 file-teste
+chmod u=rw,g=r,o=r file-teste
+chmod -R 555  examp_dir/  (-R recursive. Aplica no diretório e subdir)
+
+chown giropops teste
+chown giropops:giropops teste
+chown :giropops teste (-R Recursive)
+
+.:: STICK BIT ::.
+ Com stick bit aplicado no diretório, somente o dono do arquivo pode excluir seus arquivos.
+
+chmod 1755 ~/permisssoes/tmp
+drwxr-xr-t 2 cc1e0x00 cc1e0x00 4,0K mai  6 10:49 tmp   
+
+.:: SUID  e SGID ::.
+ Aplicavél em binários. Binários com permissão SUID permitem outros usuários como se fosse o dono do arquivo;]
+Como o SGID, permite que outros executem o binário como se fosse pertecente ao grupo dono do arquivo
+
+
+SUID
+
+chmod 4755 do.sh
+
+-rwsr-xr-x 1 root root 71K jan 20 17:10 /bin/su  
+-rwsr-xr-x 1 root root 63K fev  7  2020 /bin/passwd   
+
+SGID
+
+chmod 2766 do.sh
+
+-rwxrwSrw- 1 cc1e0x00 cc1e0x00 30 mai  6 16:08 do.sh   
+
+
+.:: UMASK ::.
+
+UMASK define o valor padrão de permissão para arquivos e diretórios. Ou seja, é realizada a operação das permissões default por umask:
+
+   Perm.   Umask
+arq 0666 - 0022 = 644 
+dir 0777 - 0022 = 755 
